@@ -36,12 +36,20 @@
 
 **변경 전 (하드코딩):**
 ```sql
-WHERE "hostname" = 'SKNet_Pangyo_Router_01'
+SELECT non_negative_derivative("ifHCOutOctets", 1s) *8 AS "bandwidth"
+FROM "snmp" 
+WHERE  "hostname" = "Router_1" AND "ifDescr" !~ /BB|TMS/ AND "ifDescr" !~ /^p/
+AND $timeFilter 
+GROUP BY "hostname", "ifDescr", "ifAlias"
 ```
 
 **변경 후 (변수 적용):**
 ```sql
-WHERE "hostname" =~ /^$host$/
+SELECT non_negative_derivative("ifHCOutOctets", 1s) *8 AS "bandwidth"
+FROM "snmp" 
+WHERE  "hostname" =~ /^$host$/ AND "ifDescr" !~ /BB|TMS/ AND "ifDescr" !~ /^p/
+AND $timeFilter 
+GROUP BY "hostname", "ifDescr", "ifAlias"
 ```
 
 > **💡 중요 팁:**
