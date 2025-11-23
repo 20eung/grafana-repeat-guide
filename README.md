@@ -38,7 +38,8 @@
 ```sql
 SELECT non_negative_derivative("ifHCOutOctets", 1s) *8 AS "bandwidth"
 FROM "snmp" 
-WHERE  "hostname" = "Router_1" AND "ifDescr" !~ /BB|TMS/ AND "ifDescr" !~ /^p/
+WHERE  "hostname" = "Router_1"
+AND "ifDescr" !~ /BB|TMS/ AND "ifDescr" !~ /^p/
 AND $timeFilter 
 GROUP BY "hostname", "ifDescr", "ifAlias"
 ```
@@ -47,7 +48,8 @@ GROUP BY "hostname", "ifDescr", "ifAlias"
 ```sql
 SELECT non_negative_derivative("ifHCOutOctets", 1s) *8 AS "bandwidth"
 FROM "snmp" 
-WHERE  "hostname" =~ /^$host$/ AND "ifDescr" !~ /BB|TMS/ AND "ifDescr" !~ /^p/
+WHERE  "hostname" =~ /^$host$/
+AND "ifDescr" !~ /BB|TMS/ AND "ifDescr" !~ /^p/
 AND $timeFilter 
 GROUP BY "hostname", "ifDescr", "ifAlias"
 ```
